@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('login-password').value;
             
             try {
-                const { data, error } = await supabase.auth.signInWithPassword({
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
                     email,
                     password
                 });
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const usuarioActivo = document.getElementById('usuario-activo');
     if (usuarioActivo) {
-        supabase.auth.getUser().then(({ data: { user } }) => {
+        supabaseClient.auth.getUser().then(({ data: { user } }) => {
             if (!user) {
                 window.location.href = 'login.html';
             } else {

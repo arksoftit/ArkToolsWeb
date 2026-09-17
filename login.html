@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArkToolsWeb - Acceso</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="login-body">
+    <main class="login-card">
+        <h1>ArkToolsWeb</h1>
+        <h2>Iniciar sesión</h2>
+        <form id="form-login">
+            <label for="login-email">Correo electrónico</label>
+            <input type="email" id="login-email" autocomplete="email" required>
+            <label for="login-password">Contraseña</label>
+            <input type="password" id="login-password" autocomplete="current-password" required>
+            <button type="submit">Ingresar</button>
+        </form>
+        <p id="login-mensaje"></p>
+    </main>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="assets/js/db.js"></script>
+        <script src="assets/js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<instrucciones>
+1. El código se debe generar sin comentario basura he innecesarios.
+2. Las repuestas deben ser consizas, dentro del contexto del requerimiento tratado o problema que se este intentando resolver, nunca debes suponer que exista algún campo, variable o nombre de función o metodo 
+3. Si requieres mayor información sobre nombres de tablas, columnas, archivos, funciones, etc, se deben solicitar antes de generar código.
+4. Cuando se requiera modificar mas de un archivo o método, las sugerencias deben hacerse por separado, es decir, si se propone el código de un método o archivo  se debe esperar a que se aplique y se confirme que no se presentaron errores para luego pasar a la siguiente propuesta.
+5. Respetar el principio de "PASO a PASO, COMANDO a COMANDO" al lo cual le agregaría "MÉTODO a MÉTODO y ARCHIVO POR ARCHIVO".
+6. Demarcar exactamente entre que fragmentos de código existente se deben aplicar las correcciones o adecuaciones sugeridas, debes indentificar si se reemplaza un metodo completo un fragmanto o query sql, etc.
+7. Todas las instrucciones que consideres darme, serán siempre fuera de los cuadros de código, así se facilitará el copia y pagar.
+8. Proponer una hoja de ruta de los cambios, adecuaciones, mejoras, etc. que se planifiquen implementar sean consistente con los obejtivos que se esten implementado o cuando te la pida de manera específica.
+9. Cuando existan diferentes opciones, se debe preguntar si deseo ver el código de todas las alternativas, de lo contrario solo se debe mostrar el código de uso mas frecuente y estandarizado.
+10. En la medida de lo posible los archivos se te subiran en su formato original (.py, .sql, .txt, .html, etc) si requieres algún formato especificos debes solicitarlo oportunamente.
+11. Este proyecto se esta desarrollando desde cero no existe ningun tipo de estructura ni entorno de desarrollo, utilizo VS Code para el codigo por lo tanto debemos prepara y mantener un entorno de desarrollo optimo para esta aplicación, mis nociones son muy básicas para el desarrollo de este tipo de plataforma hibrida (GitHub - Supabase), entornos locales y en la nube
+12. Abstenerse de realizar cualquier análisís si la información sumnistrada por mi esta incompleta, al detactar información faltante sea cual fuera, otros archivos, estructura de alguna tabla en base de datos, etc debes notificarme haciendo mensión sobre lo faltante
+</instrucciones>
+Nuevo proyecto para desarrollos
+Estoy en proceso de planificación de un proyecto que me permita llevar el control de las actividades realizadas en cada visita de soporte y asesoría a mis clientes, para el cual he pensado en nombre como Sistema de Gestion de Visitas, Sistema de Control de Sesiones (SCS), Bitacora de Visitas, etc, en este punto el nombre esta pos definir aun.
+Para éste nuevo proyecto en pensado lo siguiente:
+    1. Debe ser una aplicación Web
+    2. Utilizar Supabase como gestor de base de datos
+    3. En la fase inicial y desarrollo utilizar GitHub Pages para desplegar todo el entorno web
+    4. En ésta primera versión implementar un API para sincronizar una base de datos DBISAM con la de Supabase
+    5. Utilizo VS Code generar el código  para el desarrollo.
+
+Los preliminares del desarrollo estarán bajo el siguiente esquema de trabajo:
+    1. Creación de Perfil en Supabese vinculado con GitHub
+    2. Creación de entorno local para creación del código necesario desde VS Code
+    3. Creación de base de datos en Supabase
+
+Las funcionalidades a implementar:
+     1. Acceso o login mediante control de usuarios de la plataforma Supabase
+         1.1.  Los usuarios solo podrán acceder mediante correo electrónico o usuario registrado.
+         1.2.  Los usuarios solo podrás registrarse mediante link de invitación del administrador del sistema enviado a correo  electrónico
+         1.3.  Al acceder por el link recibido el sistema redireccionará al usuario a una sección para que complete su perfil
+     2. Al entrar al sitio el usuario tendrá a su disposición un Dashborad con información de varios parámetros de interés que se irán desarrollando en futuras versiones, pero por ahora contará con una barra de menú lateral con diferentes opciones para interactuar con el sistema:
+         2.1. Opciones del panel lateral:
+Manú lateral:
+             a) Archivos
+                • └ Empresa
+                • └ Clientes
+                • └ Monedas
+                • └ Categorías
+                • └ Unidades
+                • └ Acciones 
+                • └ Empleados
+                • └ Tipos
+                • └ Recursos 
+                • └ Profesiones
+                • └ Usuarios
+                • └ Main Menu
+             b) Sistemas
+                • └ Hardware
+                • └ Red
+                • └ Sistemas
+                • └ Regional
+                • └ Limpiar
+                • └ Main Menu
+             c) Operaciones
+                • └ Solicitudes
+                • └ Sesiones
+                • └ Main Menu
+             d) Reportes
+                • └ Clientes
+                • └ Categorías
+                • └ Unidades
+                • └ Acciones
+                • └ Empleados
+                • └ Tipos
+                • └ Recursos 
+                • └ Profesiones
+                • └ Solicitudes
+                • └ Sesiones
+                • └ Usuarios
+                • └ Main Menu	
+             e) Configuración
+                • └ Roles
+                • └ Otras
+                • └ Cerrar
+         1.2. Cada opción llevará al usuario al formulario correspondiente donde podrá gestionar los registro mediante la implementación de las opciones CRUD
+         1.3. La base de datos tendrá la siguiente estructura de tablas:
+             a)  ark_action_categories:
+Categorías de actividades que los consultores o personal IT deben realizar, ejemplo: Instalación de Sistemas Operativos, Inducción de Usuarios, etc
+             b) ark_actions
+Acciones o tarteas que el Consultor o personal de IT debe realizar para cubrir los requerimientos solicitados por el cliente, ejemplo: Instalación de software administrativo, Revisión de cableado, Inducción en el módulo de compras, etc.
+             c) ark_clients
+Registro maestro de clientes, el cual en principio debe ser cargado desde el API a desarrollar, mediante el cual leerá la tabla la aplicación Administrativa (DBisam) y sincronizara su contenido con ésta aplicación
+             d) ark_company	
+             e) Registro maestro de las compañías responsable de la atención y soporte
+             f) ark_currencies
+             g) Registro maestro para la gestión de las diferentes monedas que se utilizaran en ésta aplicación
+             h) ark_device_types
+             i) Registro maestro para definir los diferentes tipos de dispositivos que se puedan encontrar en las instalaciones de los clientes, ejemplo: Router, Laptos, PC de escritorio, etc.
+             j) ark_employees
+Registro maestro para definir los empleados de los clientes a los cuales se les dará asistencia.
+             k) ark_functional_units
+Unidades funcionales del clientes, ejemplo; Departamentos, gerencias, etc.
+             l) ark_it_assets
+Registro maestro para llevar el inventario de los equipos y dispositivos del cliente a los cuales debemos hacerle servicios
+             m) ark_job_titles
+Registro de las profesiones de los empleados del cliente
+             n) ark_requests
+             o) Registro estandarizado de los requerimientos de los clientes, Ejemplo: Actualizar antivirus, Configurar red interna
+             p) ark_sessions
+Cabecera del registro de sesiones realizadas
+             q) ark_sessions_details
+Detalles de las sesiones realizadas 
+             r) ark_tasks_completed
+Registro de tareas completadas aun si definir su correcta implementación 
+             s) ark_users
+Registro y gestion de Usuarios
+         1.4.  Anexo la estructura de la Base de datos llamada “ArkToolsDB” actualmente en SQLite para ser adecuada a para portarla e implementarla en PostgreSQL  de Supabase
+
+Esto es un documento preliminar para ser evaluado y comenzar con la creación de la base de datos y las tablas detalladas anteriormente, por lo que necesito hagas una primera aproximación, y actuando como un exporte desarrollador con la suficiente capacidad de despliegue de aplicaciones web desde la plataforma Supabase puedas ayudarme, por lo tanto respetando las instrucciones 
+
+
+
+
+       
+
+ 

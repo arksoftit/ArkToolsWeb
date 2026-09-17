@@ -1,0 +1,6 @@
+# ArkToolsWeb
+.vscode/
+__pycache__/
+*.pyc
+conexiones.json
+.env

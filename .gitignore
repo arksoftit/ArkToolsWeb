@@ -4,3 +4,4 @@ __pycache__/
 *.pyc
 conexiones.json
 .env
+.venv/

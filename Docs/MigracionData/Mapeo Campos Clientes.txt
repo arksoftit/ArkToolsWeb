@@ -1,0 +1,26 @@
+ark_clients (Destino)		TClientes (Origes = a2Data )		TClientes (Origes = HBData )		
+Columnas	Tipos	Columnas	Tipos	Columnas	Tipos	
+clt_IDauto	INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,	No Existe, No Aplica Mapeo		No Existe, No Aplica Mapeo		
+clt_Codigo	TEXT NOT NULL UNIQUE,   	FC_CODIGO	VARCHAR(30) NOT NULL PRIMARY KEY,	CLT_CODIGO	VARCHAR(30) NOT NULL PRIMARY KEY,	
+clt_Descripcion	TEXT,      	FC_DESCRIPCION	VARCHAR(100) NOT NULL,	CLT_DESCRIPCION	VARCHAR(100) NOT NULL,	
+clt_IDfiscal	TEXT,      	FC_RIF	VARCHAR(20),	CLT_RIF	VARCHAR(20),	
+clt_Status	BOOLEAN NOT NULL DEFAULT true,  	FC_STATUS	BOOLEAN,	CLT_STATUS	BOOLEAN,	
+clt_DireccionF	TEXT,      	FC_DIRECCION1	LONGVARCHAR,	CLT_DIRECCION1	LONGVARCHAR,	
+clt_DireccionL	TEXT,      	FC_DIRECCION2	LONGVARCHAR,	CLT_DIRECCION2	LONGVARCHAR,	
+clt_Telefono1	TEXT,      	FC_TELEFONO	VARCHAR(40),	CLT_TELEFONO	VARCHAR(40),	
+clt_Telefono2	TEXT,      	FC_TELEFAX	VARCHAR(40),	CLT_TELEFAX	VARCHAR(40),	
+clt_Representante	TEXT,      	FC_CONTACTO	VARCHAR(20),	CLT_CONTACTO	VARCHAR(20),	
+clt_IDRepresentante	TEXT,      	No Existe, No Aplica Mapeo (NULL)		No Existe, No Aplica Mapeo (NULL)		
+clt_TelefonoContacto	TEXT,      	No Existe, No Aplica Mapeo (NULL)		No Existe, No Aplica Mapeo (NULL)		
+clt_EmailContacto	TEXT,      	No Existe, No Aplica Mapeo (NULL)		No Existe, No Aplica Mapeo (NULL)		
+clt_EmailEmpresa	TEXT,      	FC_EMAIL	VARCHAR(40),	CLT_EMAIL	VARCHAR(40),	
+clt_TipoContribuyente	INTEGER,      	FC_TIPO	SMALLINT,	CLT_TIPO	SMALLINT,	
+clt_Origen	TEXT,      	emp_IDauto	FOREIGN KEY (clt_Origen) REFERENCES ark_company (emp_IDauto),	emp_IDauto	FOREIGN KEY (clt_Origen) REFERENCES ark_company (emp_IDauto),	
+clt_CodigoOrigen	TEXT,      	emp_Codigo	Insertar Código Empresa 	emp_Codigo 	Insertar Código Empresa 	
+clt_FechaCreacion	TIMESTAMPTZ NOT NULL DEFAULT now(),  					
+clt_FechaSistema	TIMESTAMPTZ NOT NULL DEFAULT now(),  					
+clt_NameMachine	TEXT,      					
+clt_UserCreator	TEXT,      					
+clt_FechaUltimaActualizacion	TIMESTAMPTZ,      					
+clt_LastMachine	TEXT,      					
+clt_UserLastUpdate	TEXT      					

@@ -44,6 +44,11 @@ class DialogConexiones(tk.Toplevel):
         self.cbo_origen.set(ORIGENES[0])
         self._cargar_activa()
 
+        self.update_idletasks()
+        x = parent.winfo_x() + (parent.winfo_width() // 2) - (self.winfo_width() // 2)
+        y = parent.winfo_y() + (parent.winfo_height() // 2) - (self.winfo_height() // 2)
+        self.geometry(f"+{x}+{y}")
+
     def _cargar_activa(self):
         origen = self.cbo_origen.get()
         activa = self.manager.get_active_connection(origen)

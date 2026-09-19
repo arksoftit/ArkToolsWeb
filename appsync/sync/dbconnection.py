@@ -6,6 +6,7 @@ from datetime import datetime
 import pyodbc
 
 ORIGENES = ("SClientes", "TClientes")
+APPDATA = {"SClientes": "a2Data", "TClientes": "HBData"}
 
 
 class DBConnectionManager:
@@ -68,6 +69,7 @@ class DBConnectionManager:
             "password": password,
             "fecha": datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
             "origen": origen,
+            "appdata": APPDATA.get(origen, ""),
             "Activa": True,
         })
         with open(self.config_path, "w", encoding="utf-8") as f:

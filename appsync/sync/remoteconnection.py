@@ -63,3 +63,34 @@ class RemoteDBManager:
         filas = cursor.fetchall()
         cursor.close()
         return [fila[0] for fila in filas]
+
+    def upsert_data(self, conn, tabla, columna_conflicto, columnas, filas):
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT {columna_conflicto} FROM {tabla}")
+        existentes = {fila[0] for fila in cursor.fetchall()}
+        indice_conflicto = columnas.index(columna_conflicto)
+        placeholders = ", ".join(["%s"] * len(columnas))
+        actualizables = [c for c in columnas if c not in (columna_conflicto, "clt_NameMachine", "clt_UserCreator")]
+        set_clause = ", ".join([f"{c} = EXCLUDED.{c}" for c in actualizables])
+        sql = (
+            f"INSERT INTO {tabla} ({', '.join(columnas)}) VALUES ({placeholders}) "
+            f"ON CONFLICT ({columna_conflicto}) DO UPDATE SET {set_clause}"
+        )
+        nuevos = 0
+        actualizados = 0
+        try:
+            for fila in filas:
+                if fila[indice_conflicto] in existentes:
+                    actualizados += 1
+                else:
+                    nuevos += 1
+                cursor.execute(sql, fila)
+            conn.commit()
+        except Exception:
+            conn.rollback()
+            raise
+        finally:
+            cursor.close()
+        return nuevos, actualizados
+    
+    

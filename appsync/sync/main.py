@@ -6,6 +6,8 @@ from tkinter import ttk, messagebox
 from dbconnection import DBConnectionManager, ORIGENES
 from dialog_conexiones import DialogConexiones
 from dialog_conexion_remota import DialogConexionRemota
+from remoteconnection import RemoteDBManager
+from sync_data import COLUMNAS_MAP, mapear_clientes
 from system_info import (
     APP_DATE,
     APP_DEVELOPER,
@@ -80,6 +82,9 @@ class AppSincronizador(tk.Tk):
         self.frame_acciones = ttk.Frame(self, height=60)
         self.frame_acciones.pack(fill=tk.X, side=tk.BOTTOM, padx=10, pady=(0, 10))
         self.frame_acciones.pack_propagate(False)
+        
+        self.btn_sincronizar_datos = ttk.Button(self.frame_acciones, text="Sincronizar Datos", command=self._sincronizar_clientes)
+        self.btn_sincronizar_datos.pack(side=tk.LEFT, padx=5)
 
         contenedor = ttk.Frame(self, padding=(10, 0, 10, 10))
         contenedor.pack(fill=tk.BOTH, expand=True)
@@ -160,6 +165,66 @@ class AppSincronizador(tk.Tk):
     def _habilitar_carga(self):
         self.btn_cargar.config(state=tk.NORMAL)
         self.cbo_origen.config(state="readonly")
+        self.btn_sincronizar_datos.config(state=tk.NORMAL)
+    
+    def _sincronizar_clientes(self):
+        origen = self.cbo_origen.get()
+        cfg = RemoteDBManager().load_config()
+        if not cfg:
+            messagebox.showwarning("Sincronización", "No hay configuración remota guardada. Use Conexiones > Conexión Remota.", parent=self)
+            return
+        if "ark_clients" not in cfg.get("tablas", []):
+            messagebox.showwarning("Sincronización", "La tabla ark_clients no está seleccionada para sincronizar.", parent=self)
+            return
+        self.btn_cargar.config(state=tk.DISABLED)
+        self.btn_sincronizar_datos.config(state=tk.DISABLED)
+        self.cbo_origen.config(state=tk.DISABLED)
+        self.lbl_estado.config(text=f"Sincronizando {origen}...")
+        threading.Thread(target=self._ejecutar_sincronizacion, args=(origen, cfg), daemon=True).start()
+    
+    def _ejecutar_sincronizacion(self, origen, cfg):
+        try:
+            ok, msg, conn_local = self.manager.open_connection(origen)
+            if not ok:
+                self.after(0, self._error_sincronizacion, msg)
+                return
+            pares = COLUMNAS_MAP["ark_clients"][origen]
+            columnas_origen = [orig_col for _, orig_col in pares]
+            consulta = f"SELECT {', '.join(columnas_origen)} FROM {origen}"
+            cursor = conn_local.cursor()
+            cursor.execute(consulta)
+            filas = cursor.fetchall()
+            cursor.close()
+            machine = get_machine_name()
+            user = get_current_user()
+            columnas_destino, filas_mapeadas = mapear_clientes(origen, filas, machine, user)
+            remoto = RemoteDBManager()
+            conn_remota = remoto.connect(
+                cfg["server"], cfg["port"], cfg["database"],
+                cfg["username"], cfg["password"], cfg["ssl"],
+            )
+            nuevos, actualizados = remoto.upsert_data(
+                conn_remota, "ark_clients", "clt_Codigo",
+                columnas_destino, filas_mapeadas,
+            )
+            conn_remota.close()
+            self.after(0, self._exito_sincronizacion, origen, len(filas), nuevos, actualizados)
+        except Exception as e:
+            self.after(0, self._error_sincronizacion, str(e))
+
+    def _exito_sincronizacion(self, origen, leidas, nuevos, actualizados):
+        self.lbl_estado.config(text=f"{origen}: {leidas} leídas | {nuevos} nuevas | {actualizados} actualizadas")
+        messagebox.showinfo(
+            "Sincronización completada",
+            f"Origen: {origen}\nLeídas: {leidas}\nNuevas: {nuevos}\nActualizadas: {actualizados}",
+            parent=self,
+        )
+        self._habilitar_carga()
+
+    def _error_sincronizacion(self, msg):
+        self.lbl_estado.config(text="Error en sincronización")
+        messagebox.showerror("Sincronización", msg, parent=self)
+        self._habilitar_carga()
         
     def _create_status_bar(self):
         self.status_bar = ttk.Frame(self)

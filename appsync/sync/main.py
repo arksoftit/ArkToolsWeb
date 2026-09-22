@@ -5,7 +5,7 @@ from tkinter import ttk, messagebox
 
 from dbconnection import DBConnectionManager, ORIGENES
 from dialog_conexiones import DialogConexiones
-# from system_info import get_date_audit, get_current_user, get_machine_name, get_app_version
+from dialog_conexion_remota import DialogConexionRemota
 from system_info import (
     APP_DATE,
     APP_DEVELOPER,
@@ -52,7 +52,8 @@ class AppSincronizador(tk.Tk):
 
         barra = tk.Menu(self)
         menu_conexiones = tk.Menu(barra, tearoff=0)
-        menu_conexiones.add_command(label="Gestionar conexiones...", command=self._abrir_dialogo)
+        menu_conexiones.add_command(label="Conexión Local", command=self._abrir_dialogo_local)
+        menu_conexiones.add_command(label="Conexión Remota", command=self._abrir_dialogo_remoto)
         barra.add_cascade(label="Conexiones", menu=menu_conexiones)
 
         menu_ayuda = tk.Menu(barra, tearoff=0)
@@ -100,18 +101,18 @@ class AppSincronizador(tk.Tk):
         y = (screen_height // 2) - (height // 2)
         self.geometry(f"{width}x{height}+{x}+{y}")
 
-    def _abrir_dialogo(self):
+    def _abrir_dialogo_local(self):
         DialogConexiones(self, manager=self.manager)
-    
+        
+    def _abrir_dialogo_remoto(self):
+        DialogConexionRemota(self)
+        
     def _sort_treeview(self, col, reverse):
         filas = [(self.tree.set(item, col), item) for item in self.tree.get_children("")]
         filas.sort(reverse=reverse)
         for index, (_, item) in enumerate(filas):
             self.tree.move(item, "", index)
         self.tree.heading(col, command=lambda: self._sort_treeview(col, not reverse))
-
-    def _abrir_dialogo(self):
-        DialogConexiones(self, manager=self.manager)
 
     def _cargar(self):
         origen = self.cbo_origen.get()

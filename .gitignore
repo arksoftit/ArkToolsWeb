@@ -3,7 +3,7 @@
 __pycache__/
 *.pyc
 conexiones.json
+remotedb.json
 .env
 .venv/
 Docs/
-pyto

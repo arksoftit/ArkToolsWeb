@@ -95,6 +95,15 @@ async function renderArkUsers() {
                         </div>
                     </div>
                 </fieldset>
+                <fieldset class="ark-grupo">
+                    <legend>Vinculación Auth</legend>
+                    <div class="ark-grid">
+                        <div class="ark-campo" style="grid-column: 1 / -1;">
+                            <label for="usr_auth_id">ID Auth (UUID)</label>
+                            <input type="text" id="usr_auth_id" maxlength="36" placeholder="UUID de la cuenta en Supabase Auth">
+                        </div>
+                    </div>
+                </fieldset>
             </form>
             <div class="ark-busqueda">
                 <div class="ark-campo" style="margin:0; flex:1;">
@@ -256,6 +265,7 @@ function _ark_users_limpiar_form() {
     document.getElementById('usr_emailusuario').value = '';
     document.getElementById('usr_cargo').value = '';
     document.getElementById('usr_fechacreacion').value = '';
+    document.getElementById('usr_auth_id').value = '';
     document.querySelectorAll('#tabla_registros tr.seleccionada').forEach(r => r.classList.remove('seleccionada'));
 }
 
@@ -287,6 +297,7 @@ function _ark_users_leer_form() {
         usr_telefono: valor('usr_telefono'),
         usr_emailusuario: valor('usr_emailusuario'),
         usr_cargo: valor('usr_cargo'),
+        usr_auth_id: valor('usr_auth_id'),
     };
 }
 
@@ -301,6 +312,7 @@ function _ark_users_poblar_form(reg) {
     document.getElementById('usr_emailusuario').value = reg.usr_emailusuario ?? '';
     document.getElementById('usr_cargo').value = reg.usr_cargo ?? '';
     document.getElementById('usr_fechacreacion').value = reg.usr_fechacreacion ? new Date(reg.usr_fechacreacion).toLocaleString() : '';
+    document.getElementById('usr_auth_id').value = reg.usr_auth_id ?? '';
 }
 
 async function _ark_users_cargar_registro(idauto) {
@@ -357,6 +369,10 @@ async function _ark_users_guardar() {
     }
     if (!valores.usr_emp_idauto) {
         _ark_users_mostrar_mensaje('Debe seleccionar una compañía.', 'error');
+        return;
+    }
+    if (valores.usr_auth_id && !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(valores.usr_auth_id)) {
+        _ark_users_mostrar_mensaje('El ID Auth debe tener formato UUID.', 'error');
         return;
     }
     try {

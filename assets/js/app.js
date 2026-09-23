@@ -14,7 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const modulo = e.target.dataset.modulo;
 
                 if (modulo === 'cerrar') {
-                    await cerrarSesion();
+                    cerrarSesion();
+                    return;
+                }
+
+                if (modulo === 'empresa') {
+                    renderArkCompany();
                     return;
                 }
 

@@ -64,27 +64,34 @@ class RemoteDBManager:
         cursor.close()
         return [fila[0] for fila in filas]
 
-    def upsert_data(self, conn, tabla, columna_conflicto, columnas, filas):
+    def upsert_data(self, conn, tabla, columna_conflicto, columnas, filas, progreso=None, tam_lote=500):
         cursor = conn.cursor()
         cursor.execute(f"SELECT {columna_conflicto} FROM {tabla}")
         existentes = {fila[0] for fila in cursor.fetchall()}
         indice_conflicto = columnas.index(columna_conflicto)
-        placeholders = ", ".join(["%s"] * len(columnas))
         actualizables = [c for c in columnas if c not in (columna_conflicto, "clt_NameMachine", "clt_UserCreator")]
         set_clause = ", ".join([f"{c} = EXCLUDED.{c}" for c in actualizables])
-        sql = (
-            f"INSERT INTO {tabla} ({', '.join(columnas)}) VALUES ({placeholders}) "
-            f"ON CONFLICT ({columna_conflicto}) DO UPDATE SET {set_clause}"
-        )
+        fila_placeholders = "(" + ", ".join(["%s"] * len(columnas)) + ")"
         nuevos = 0
         actualizados = 0
+        total = len(filas)
         try:
-            for fila in filas:
-                if fila[indice_conflicto] in existentes:
-                    actualizados += 1
-                else:
-                    nuevos += 1
-                cursor.execute(sql, fila)
+            for inicio in range(0, total, tam_lote):
+                lote = filas[inicio:inicio + tam_lote]
+                for fila in lote:
+                    if fila[indice_conflicto] in existentes:
+                        actualizados += 1
+                    else:
+                        nuevos += 1
+                placeholders = ", ".join([fila_placeholders] * len(lote))
+                params = [valor for fila in lote for valor in fila]
+                sql = (
+                    f"INSERT INTO {tabla} ({', '.join(columnas)}) VALUES {placeholders} "
+                    f"ON CONFLICT ({columna_conflicto}) DO UPDATE SET {set_clause}"
+                )
+                cursor.execute(sql, params)
+                if progreso:
+                    progreso(min(inicio + tam_lote, total), total)
             conn.commit()
         except Exception:
             conn.rollback()
@@ -92,5 +99,3 @@ class RemoteDBManager:
         finally:
             cursor.close()
         return nuevos, actualizados
-    
-    

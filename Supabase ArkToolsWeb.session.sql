@@ -1,0 +1,2 @@
+DELETE FROM ark_clients;
+ALTER TABLE ark_clients ALTER COLUMN clt_IDauto RESTART WITH 1;

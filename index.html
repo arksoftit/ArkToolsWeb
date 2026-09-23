@@ -1,87 +1,88 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArkToolsWeb - Dashboard</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body class="dashboard-body">
-    <aside id="menu-lateral">
-        <h1>ArkToolsWeb</h1>
-        <nav id="nav-menu">
-            <details>
-                <summary>Archivos</summary>
-                <a href="#" data-modulo="empresa">Empresa</a>
-                <a href="#" data-modulo="clientes">Clientes</a>
-                <a href="#" data-modulo="monedas">Monedas</a>
-                <a href="#" data-modulo="categorias">Categorías</a>
-                <a href="#" data-modulo="unidades">Unidades</a>
-                <a href="#" data-modulo="acciones">Acciones</a>
-                <a href="#" data-modulo="empleados">Empleados</a>
-                <a href="#" data-modulo="tipos">Tipos</a>
-                <a href="#" data-modulo="recursos">Recursos</a>
-                <a href="#" data-modulo="profesiones">Profesiones</a>
-                <a href="#" data-modulo="usuarios">Usuarios</a>
-                <a href="#" data-modulo="main-menu">Main Menu</a>
-            </details>
-            <details>
-                <summary>Sistemas</summary>
-                <a href="#" data-modulo="hardware">Hardware</a>
-                <a href="#" data-modulo="red">Red</a>
-                <a href="#" data-modulo="sistemas">Sistemas</a>
-                <a href="#" data-modulo="regional">Regional</a>
-                <a href="#" data-modulo="limpiar">Limpiar</a>
-                <a href="#" data-modulo="main-menu">Main Menu</a>
-            </details>
-            <details>
-                <summary>Operaciones</summary>
-                <a href="#" data-modulo="solicitudes">Solicitudes</a>
-                <a href="#" data-modulo="sesiones">Sesiones</a>
-                <a href="#" data-modulo="main-menu">Main Menu</a>
-            </details>
-            <details>
-                <summary>Reportes</summary>
-                <a href="#" data-modulo="rep-clientes">Clientes</a>
-                <a href="#" data-modulo="rep-categorias">Categorías</a>
-                <a href="#" data-modulo="rep-unidades">Unidades</a>
-                <a href="#" data-modulo="rep-acciones">Acciones</a>
-                <a href="#" data-modulo="rep-empleados">Empleados</a>
-                <a href="#" data-modulo="rep-tipos">Tipos</a>
-                <a href="#" data-modulo="rep-recursos">Recursos</a>
-                <a href="#" data-modulo="rep-profesiones">Profesiones</a>
-                <a href="#" data-modulo="rep-solicitudes">Solicitudes</a>
-                <a href="#" data-modulo="rep-sesiones">Sesiones</a>
-                <a href="#" data-modulo="rep-usuarios">Usuarios</a>
-                <a href="#" data-modulo="main-menu">Main Menu</a>
-            </details>
-            <details>
-                <summary>Configuración</summary>
-                <a href="#" data-modulo="roles">Roles</a>
-                <a href="#" data-modulo="otras">Otras</a>
-            </details>
-            <a href="#" id="cerrar-sesion-menu" data-modulo="cerrar">Cerrar sesión</a>
-        </nav>
-    </aside>
-    <main id="contenido-principal">
-        <header id="cabecera">
-            <span id="usuario-activo"></span>
-            <button id="cerrar-sesion-icono" title="Cerrar sesión" aria-label="Cerrar sesión">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                    <polyline points="16 17 21 12 16 7"></polyline>
-                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                </svg>
-            </button>
-        </header>
-        <section id="dashboard">
-            <h2>Panel principal</h2>
-            <p>Bienvenido al sistema de control de sesiones y visitas.</p>
-        </section>
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="assets/js/db.js"></script>
-    <script src="assets/js/auth.js"></script>
-    <script src="assets/js/app.js"></script>
-</body>
-</html>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ArkToolsWeb - Dashboard</title>
+        <link rel="stylesheet" href="assets/css/style.css">
+    </head>
+    <body class="dashboard-body">
+        <aside id="menu-lateral">
+            <h1>ArkToolsWeb</h1>
+            <nav id="nav-menu">
+                <details>
+                    <summary>Archivos</summary>
+                    <a href="#" data-modulo="empresa">Empresa</a>
+                    <a href="#" data-modulo="clientes">Clientes</a>
+                    <a href="#" data-modulo="monedas">Monedas</a>
+                    <a href="#" data-modulo="categorias">Categorías</a>
+                    <a href="#" data-modulo="unidades">Unidades</a>
+                    <a href="#" data-modulo="acciones">Acciones</a>
+                    <a href="#" data-modulo="empleados">Empleados</a>
+                    <a href="#" data-modulo="tipos">Tipos</a>
+                    <a href="#" data-modulo="recursos">Recursos</a>
+                    <a href="#" data-modulo="profesiones">Profesiones</a>
+                    <a href="#" data-modulo="usuarios">Usuarios</a>
+                    <a href="#" data-modulo="main-menu">Main Menu</a>
+                </details>
+                <details>
+                    <summary>Sistemas</summary>
+                    <a href="#" data-modulo="hardware">Hardware</a>
+                    <a href="#" data-modulo="red">Red</a>
+                    <a href="#" data-modulo="sistemas">Sistemas</a>
+                    <a href="#" data-modulo="regional">Regional</a>
+                    <a href="#" data-modulo="limpiar">Limpiar</a>
+                    <a href="#" data-modulo="main-menu">Main Menu</a>
+                </details>
+                <details>
+                    <summary>Operaciones</summary>
+                    <a href="#" data-modulo="solicitudes">Solicitudes</a>
+                    <a href="#" data-modulo="sesiones">Sesiones</a>
+                    <a href="#" data-modulo="main-menu">Main Menu</a>
+                </details>
+                <details>
+                    <summary>Reportes</summary>
+                    <a href="#" data-modulo="rep-clientes">Clientes</a>
+                    <a href="#" data-modulo="rep-categorias">Categorías</a>
+                    <a href="#" data-modulo="rep-unidades">Unidades</a>
+                    <a href="#" data-modulo="rep-acciones">Acciones</a>
+                    <a href="#" data-modulo="rep-empleados">Empleados</a>
+                    <a href="#" data-modulo="rep-tipos">Tipos</a>
+                    <a href="#" data-modulo="rep-recursos">Recursos</a>
+                    <a href="#" data-modulo="rep-profesiones">Profesiones</a>
+                    <a href="#" data-modulo="rep-solicitudes">Solicitudes</a>
+                    <a href="#" data-modulo="rep-sesiones">Sesiones</a>
+                    <a href="#" data-modulo="rep-usuarios">Usuarios</a>
+                    <a href="#" data-modulo="main-menu">Main Menu</a>
+                </details>
+                <details>
+                    <summary>Configuración</summary>
+                    <a href="#" data-modulo="roles">Roles</a>
+                    <a href="#" data-modulo="otras">Otras</a>
+                </details>
+                <a href="#" id="cerrar-sesion-menu" data-modulo="cerrar">Cerrar sesión</a>
+            </nav>
+        </aside>
+        <main id="contenido-principal">
+            <header id="cabecera">
+                <span id="usuario-activo"></span>
+                <button id="cerrar-sesion-icono" title="Cerrar sesión" aria-label="Cerrar sesión">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </button>
+            </header>
+            <section id="dashboard">
+                <h2>Panel principal</h2>
+                <p>Bienvenido al sistema de control de sesiones y visitas.</p>
+            </section>
+        </main>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="assets/js/db.js"></script>
+        <script src="assets/js/auth.js"></script>
+        <script src="assets/js/ark_company.js"></script>
+        <script src="assets/js/app.js"></script>
+    </body>
+    </html>

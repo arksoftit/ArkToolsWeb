@@ -1,0 +1,6 @@
+[22/09/2026 14:15:44] [INICIO] Archivo de log creado: H:\Desarrollos\Proyecto_Supabase\ArkToolsWeb\appsync\sync\..\logs\sincronizacion_22092026_141544.log
+[22/09/2026 14:15:44] [INFO] Inicio de sincronización. Origen: SClientes. Equipo: NIBIRUS. Usuario: juanep.
+[22/09/2026 14:15:44] [INFO] Conexión local establecida con SClientes.
+[22/09/2026 14:15:44] [INFO] Lectura completada: 6527 filas leídas de SClientes.
+[22/09/2026 14:15:44] [INFO] Mapeo completado: 6527 filas preparadas para ark_clients.
+[22/09/2026 14:15:46] [INFO] Conexión remota establecida con Supabase.

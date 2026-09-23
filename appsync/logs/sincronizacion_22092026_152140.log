@@ -1,0 +1,22 @@
+[22/09/2026 15:21:40] [INICIO] Archivo de log creado: H:\Desarrollos\Proyecto_Supabase\ArkToolsWeb\appsync\sync\..\logs\sincronizacion_22092026_152140.log
+[22/09/2026 15:21:40] [INFO] Inicio de sincronización. Origen: SClientes. Equipo: NIBIRUS. Usuario: juanep.
+[22/09/2026 15:21:40] [INFO] Conexión local establecida con SClientes.
+[22/09/2026 15:21:40] [INFO] Lectura completada: 6527 filas leídas de SClientes.
+[22/09/2026 15:21:40] [INFO] Mapeo completado: 6527 filas preparadas para ark_clients.
+[22/09/2026 15:21:41] [INFO] Conexión remota establecida con Supabase.
+[22/09/2026 15:21:43] [INFO] Lote procesado: 500/6527 filas.
+[22/09/2026 15:21:44] [INFO] Lote procesado: 1000/6527 filas.
+[22/09/2026 15:21:45] [INFO] Lote procesado: 1500/6527 filas.
+[22/09/2026 15:21:46] [INFO] Lote procesado: 2000/6527 filas.
+[22/09/2026 15:21:47] [INFO] Lote procesado: 2500/6527 filas.
+[22/09/2026 15:21:48] [INFO] Lote procesado: 3000/6527 filas.
+[22/09/2026 15:21:49] [INFO] Lote procesado: 3500/6527 filas.
+[22/09/2026 15:21:51] [INFO] Lote procesado: 4000/6527 filas.
+[22/09/2026 15:21:52] [INFO] Lote procesado: 4500/6527 filas.
+[22/09/2026 15:21:53] [INFO] Lote procesado: 5000/6527 filas.
+[22/09/2026 15:21:54] [INFO] Lote procesado: 5500/6527 filas.
+[22/09/2026 15:21:56] [INFO] Lote procesado: 6000/6527 filas.
+[22/09/2026 15:21:57] [INFO] Lote procesado: 6500/6527 filas.
+[22/09/2026 15:21:57] [INFO] Lote procesado: 6527/6527 filas.
+[22/09/2026 15:21:58] [INFO] Upsert completado. Nuevos: 6527. Actualizados: 0.
+[22/09/2026 15:21:58] [FIN] Sincronización exitosa. Leídas: 6527. Nuevas: 6527. Actualizadas: 0.

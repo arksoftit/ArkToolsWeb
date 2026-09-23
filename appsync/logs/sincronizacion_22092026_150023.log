@@ -1,0 +1,9 @@
+[22/09/2026 15:00:23] [INICIO] Archivo de log creado: H:\Desarrollos\Proyecto_Supabase\ArkToolsWeb\appsync\sync\..\logs\sincronizacion_22092026_150023.log
+[22/09/2026 15:00:23] [INFO] Inicio de sincronización. Origen: TClientes. Equipo: NIBIRUS. Usuario: juanep.
+[22/09/2026 15:00:23] [INFO] Conexión local establecida con TClientes.
+[22/09/2026 15:00:23] [INFO] Lectura completada: 65 filas leídas de TClientes.
+[22/09/2026 15:00:23] [INFO] Mapeo completado: 65 filas preparadas para ark_clients.
+[22/09/2026 15:00:25] [INFO] Conexión remota establecida con Supabase.
+[22/09/2026 15:00:26] [INFO] Lote procesado: 65/65 filas.
+[22/09/2026 15:00:26] [INFO] Upsert completado. Nuevos: 65. Actualizados: 0.
+[22/09/2026 15:00:26] [FIN] Sincronización exitosa. Leídas: 65. Nuevas: 65. Actualizadas: 0.

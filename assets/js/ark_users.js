@@ -258,6 +258,21 @@ function _ark_users_estado(modo) {
     }
 }
 
+function _ark_users_limpiar_form() {
+    document.getElementById('usr_codigo').value = '';
+    document.getElementById('usr_login').value = '';
+    document.getElementById('usr_descripcion').value = '';
+    document.getElementById('usr_status').value = 'true';
+    document.getElementById('usr_rol').value = '';
+    document.getElementById('usr_emp_idauto').value = '';
+    document.getElementById('usr_telefono').value = '';
+    document.getElementById('usr_emailusuario').value = '';
+    document.getElementById('usr_cargo').value = '';
+    document.getElementById('usr_fechacreacion').value = '';
+    document.getElementById('usr_auth_id').value = '';
+    document.querySelectorAll('#tabla_registros tr.seleccionada').forEach(r => r.classList.remove('seleccionada'));
+}
+
 function _ark_users_mostrar_mensaje(texto, tipo) {
     const el = document.getElementById('ark-mensaje');
     el.textContent = texto;

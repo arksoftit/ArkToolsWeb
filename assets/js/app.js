@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                if (modulo === 'Clientes') {
+                if (modulo === 'clientes') {
                     renderArkClients();
                     return;
                 }

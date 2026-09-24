@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 if (modulo === 'categorias') {
-                    renderArkCategories();
+                    renderArkActionCategories();
                     return;
                 }
 

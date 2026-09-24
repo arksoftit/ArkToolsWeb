@@ -233,6 +233,7 @@ function _ark_users_estado(modo) {
     const btnCan = document.getElementById('btn_cancelar');
     const btnBor = document.getElementById('btn_borrar');
     const campos = document.querySelectorAll('#ark-form-usuarios input, #ark-form-usuarios select, #ark-form-usuarios textarea');
+    const authId = document.getElementById('usr_auth_id');
     if (modo === 'consulta') {
         btnInc.disabled = false; btnGua.disabled = true; btnEdi.disabled = true;
         btnCan.disabled = true; btnBor.disabled = true;
@@ -246,27 +247,15 @@ function _ark_users_estado(modo) {
         btnInc.disabled = true; btnGua.disabled = false; btnEdi.disabled = true;
         btnCan.disabled = false; btnBor.disabled = true;
         campos.forEach(c => { if (c.id !== 'usr_codigo' && c.id !== 'usr_fechacreacion') c.disabled = false; });
+        if (authId.value.trim() !== '') {
+            authId.disabled = true;
+        }
     } else if (modo === 'nuevo') {
         btnInc.disabled = true; btnGua.disabled = false; btnEdi.disabled = true;
         btnCan.disabled = false; btnBor.disabled = true;
         campos.forEach(c => { if (c.id !== 'usr_fechacreacion') c.disabled = false; });
         _ark_users_limpiar_form();
     }
-}
-
-function _ark_users_limpiar_form() {
-    document.getElementById('usr_codigo').value = '';
-    document.getElementById('usr_login').value = '';
-    document.getElementById('usr_descripcion').value = '';
-    document.getElementById('usr_status').value = 'true';
-    document.getElementById('usr_rol').value = '';
-    document.getElementById('usr_emp_idauto').value = '';
-    document.getElementById('usr_telefono').value = '';
-    document.getElementById('usr_emailusuario').value = '';
-    document.getElementById('usr_cargo').value = '';
-    document.getElementById('usr_fechacreacion').value = '';
-    document.getElementById('usr_auth_id').value = '';
-    document.querySelectorAll('#tabla_registros tr.seleccionada').forEach(r => r.classList.remove('seleccionada'));
 }
 
 function _ark_users_mostrar_mensaje(texto, tipo) {

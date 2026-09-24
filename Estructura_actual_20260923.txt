@@ -1,0 +1,123 @@
+.:
+appsync/
+assets/
+Docs/
+Estructura_actual_20260923
+Estructura_actual_20260923.txt
+index.html
+LICENSE
+login.html
+README.md
+sql/
+Supabase ArkToolsWeb.session.sql
+
+./appsync:
+config/
+logs/
+sync/
+
+./appsync/config:
+conexiones.json
+remotedb.json
+
+./appsync/logs:
+sincronizacion_22092026_141544.log
+sincronizacion_22092026_142705.log
+sincronizacion_22092026_150023.log
+sincronizacion_22092026_152140.log
+sincronizacion_22092026_153101.log
+
+./appsync/sync:
+__pycache__/
+dbconnection.py
+dialog_conexion_remota.py
+dialog_conexiones.py
+main.py
+remoteconnection.py
+requirements.txt
+sync_data.py
+sync_logger.py
+system_info.py
+
+./appsync/sync/__pycache__:
+dbconnection.cpython-314.pyc
+dialog_conexion_remota.cpython-314.pyc
+dialog_conexiones.cpython-314.pyc
+remoteconnection.cpython-314.pyc
+sync_data.cpython-314.pyc
+sync_logger.cpython-314.pyc
+system_info.cpython-314.pyc
+
+./assets:
+css/
+img/
+js/
+
+./assets/css:
+style.css
+
+./assets/img:
+
+./assets/js:
+app.js
+ark_action_categories.js
+ark_actions.js
+ark_clients.js
+ark_company.js
+ark_currencies.js
+ark_device_types.js
+ark_employees.js
+ark_functional_units.js
+ark_it_assets.js
+ark_job_titles.js
+ark_requests.js
+ark_sessions.js
+ark_sessions_details.js
+ark_users.js
+auth.js
+db.js
+
+./Docs:
+Consulta SQL/
+Estructura_Actualizada_ArkToolsWeb_180926A.txt
+GestionVisitas.odt
+MigracionData/
+New_Proyect_Supabas V2.txt
+New_Proyect_Supabas.txt
+Tablas para Supabase.sql
+
+./Docs/Consulta SQL:
+Clientes Sincronizados.csv
+Consulta 1.csv
+Consulta 2.csv
+Consultas Modelos.txt
+Count_Clientes.csv
+SQL Columnas de Tablas Cliente Compañia usuario.csv
+SQL KeyUsers.csv
+
+./Docs/MigracionData:
+Ark_Clients.txt
+Ark_Clients_PostgreSQL.txt
+Ark_Clients_SQLite.xlsx
+DataNominaRespaldo-Hoy.7z
+Mapeo Campos Clientes.txt
+Mapeo Campos Clientes.xlsx
+Mapeo Campos Clientes_B.txt
+New_Proyect_Supabas.txt
+SClientes.sql
+SClientes.txt
+SClientes.xlsx
+SClientes_00.txt
+Tablas para Supabase.sql
+TClientes.sql
+TClientes.txt
+TClientes.xlsx
+TClientes_00.txt
+
+./sql:
+000_Consultas.sql
+001_ark_action_categories.sql
+002_ark_actions.sql
+004_rls.sql
+005_usuario_admin.sql
+schema.sql

@@ -33,6 +33,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
+                if (modulo === 'categorias') {
+                    renderArkCategories();
+                    return;
+                }
+
+                if (modulo === 'acciones') {
+                    renderArkActions();
+                    return;
+                }
+
                 if (modulo === 'main-menu') {
                     dashboard.innerHTML = '<h2>Panel principal</h2><p>Bienvenido al sistema de control de sesiones y visitas.</p>';
                     return;

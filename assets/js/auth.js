@@ -30,7 +30,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.href = 'login.html';
             } else {
                 usuarioActivo.textContent = user.email;
+                _ark_cargar_empresa_usuario();
             }
         });
     }
 });
+
+async function _ark_cargar_empresa_usuario() {
+    const elEmpresa = document.getElementById('empresa-activa');
+    if (!elEmpresa) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) {
+        elEmpresa.textContent = '';
+        return;
+    }
+    try {
+        const { data: userData } = await supabaseClient
+            .from('ark_users')
+            .select('usr_emp_idauto')
+            .eq('usr_login', user.email)
+            .maybeSingle();
+        if (!userData || !userData.usr_emp_idauto) {
+            elEmpresa.textContent = 'Sin Empresa Asignada';
+            return;
+        }
+        const { data: companyData } = await supabaseClient
+            .from('ark_company')
+            .select('emp_descripcion')
+            .eq('emp_idauto', userData.usr_emp_idauto)
+            .maybeSingle();
+        elEmpresa.textContent = (companyData && companyData.emp_descripcion) ? companyData.emp_descripcion : 'Sin Empresa Asignada';
+    } catch (err) {
+        elEmpresa.textContent = 'Sin Empresa Asignada';
+    }
+}

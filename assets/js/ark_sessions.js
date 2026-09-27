@@ -42,7 +42,7 @@ async function renderArkSessions() {
                     <div class="ark-grid">
                         <div class="ark-campo">
                             <label for="ses_numero">Número</label>
-                            <input type="text" id="ses_numero" maxlength="8" required>
+                            <input type="text" id="ses_numero" maxlength="12" readonly>
                         </div>
                         <div class="ark-campo">
                             <label for="ses_status">Estado</label>
@@ -134,6 +134,63 @@ async function _ark_sessions_init() {
     document.getElementById('btn_editar').addEventListener('click', _ark_sessions_editar);
     document.getElementById('btn_cancelar').addEventListener('click', _ark_sessions_cancelar);
     document.getElementById('btn_borrar').addEventListener('click', _ark_sessions_borrar);
+}
+
+async function _ark_sessions_obtener_codigo_empresa() {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return null;
+    try {
+        const { data: userData } = await supabaseClient
+            .from('ark_users')
+            .select('usr_emp_idauto')
+            .eq('usr_login', user.email)
+            .maybeSingle();
+        if (!userData || !userData.usr_emp_idauto) return null;
+        const { data: companyData } = await supabaseClient
+            .from('ark_company')
+            .select('emp_codigo')
+            .eq('emp_idauto', userData.usr_emp_idauto)
+            .maybeSingle();
+        return companyData ? companyData.emp_codigo : null;
+    } catch (err) {
+        return null;
+    }
+}
+
+async function _ark_sessions_generar_numero() {
+    const empCodigo = await _ark_sessions_obtener_codigo_empresa();
+    if (!empCodigo) {
+        throw new Error('No se pudo determinar la empresa del usuario.');
+    }
+    const hoy = new Date();
+    const anio = hoy.getFullYear();
+    const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+    const dia = String(hoy.getDate()).padStart(2, '0');
+    const prefijo = `${anio}${mes}${dia}`;
+    const { data: corrData, error: corrError } = await supabaseClient
+        .from('ark_correlatives')
+        .select('cor_proximo')
+        .eq('cor_modname', 'ark_sessions')
+        .eq('cor_emp_codigo', empCodigo)
+        .maybeSingle();
+    if (corrError) throw corrError;
+    let correlativo = 1;
+    if (corrData) {
+        correlativo = corrData.cor_proximo;
+        const { error: updateError } = await supabaseClient
+            .from('ark_correlatives')
+            .update({ cor_proximo: correlativo + 1, cor_fechaultimaactualizacion: new Date().toISOString() })
+            .eq('cor_modname', 'ark_sessions')
+            .eq('cor_emp_codigo', empCodigo);
+        if (updateError) throw updateError;
+    } else {
+        const { error: insertError } = await supabaseClient
+            .from('ark_correlatives')
+            .insert({ cor_modname: 'ark_sessions', cor_proximo: 2, cor_emp_codigo: empCodigo });
+        if (insertError) throw insertError;
+    }
+    const correlativoStr = String(correlativo).padStart(4, '0');
+    return `${prefijo}${correlativoStr}`;
 }
 
 async function _ark_sessions_cargar_clientes() {
@@ -243,7 +300,7 @@ function _ark_sessions_estado(modo) {
         btnInc.disabled = true; btnGua.disabled = false; btnEdi.disabled = true;
         btnCan.disabled = false; btnBor.disabled = true;
         campos.forEach(c => c.disabled = false);
-        _ark_sessions_limpiar_form();
+        document.getElementById('ses_numero').disabled = true;
     }
 }
 
@@ -310,10 +367,16 @@ async function _ark_sessions_cargar_registro(idauto) {
     return data;
 }
 
-function _ark_sessions_incluir() {
-    document.getElementById('ark-form-sessions').dataset.idauto = '';
-    _ark_sessions_limpiar_form();
-    _ark_sessions_estado('nuevo');
+async function _ark_sessions_incluir() {
+    try {
+        const numero = await _ark_sessions_generar_numero();
+        document.getElementById('ark-form-sessions').dataset.idauto = '';
+        _ark_sessions_limpiar_form();
+        document.getElementById('ses_numero').value = numero;
+        _ark_sessions_estado('nuevo');
+    } catch (err) {
+        _ark_sessions_mostrar_mensaje('Error al generar número: ' + err.message, 'error');
+    }
 }
 
 async function _ark_sessions_editar() {

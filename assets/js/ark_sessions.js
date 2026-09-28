@@ -84,6 +84,7 @@ async function renderArkSessions() {
                     <label for="input_buscar_codigo">Buscar por número</label>
                     <input type="text" id="input_buscar_codigo" placeholder="Número...">
                 </div>
+                <button type="button" id="btn_detalles" style="padding:0.4rem 1rem; background:#28a745; color:#fff; border:none; border-radius:4px; cursor:pointer;">Inclui_Detalles</button>
                 <button type="button" id="btn_buscar" style="padding:0.4rem 1rem; background:#1f3864; color:#fff; border:none; border-radius:4px; cursor:pointer;">Buscar</button>
                 <button type="button" id="btn_listar_todo" style="padding:0.4rem 1rem; background:#555; color:#fff; border:none; border-radius:4px; cursor:pointer;">Listar todo</button>
             </div>
@@ -104,7 +105,6 @@ async function renderArkSessions() {
                 <button type="button" id="btn_editar" disabled>Editar</button>
                 <button type="button" id="btn_cancelar" disabled>Cancelar</button>
                 <button type="button" id="btn_borrar" class="peligro" disabled>Borrar</button>
-                <button type="button" id="btn_detalles" disabled>Detalles</button>
             </div>
         </div>
     `;

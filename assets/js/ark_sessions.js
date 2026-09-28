@@ -104,6 +104,7 @@ async function renderArkSessions() {
                 <button type="button" id="btn_editar" disabled>Editar</button>
                 <button type="button" id="btn_cancelar" disabled>Cancelar</button>
                 <button type="button" id="btn_borrar" class="peligro" disabled>Borrar</button>
+                <button type="button" id="btn_detalles" disabled>Detalles</button>
             </div>
         </div>
     `;
@@ -134,6 +135,7 @@ async function _ark_sessions_init() {
     document.getElementById('btn_editar').addEventListener('click', _ark_sessions_editar);
     document.getElementById('btn_cancelar').addEventListener('click', _ark_sessions_cancelar);
     document.getElementById('btn_borrar').addEventListener('click', _ark_sessions_borrar);
+    document.getElementById('btn_detalles').addEventListener('click', _ark_sessions_abrir_detalles);
 }
 
 async function _ark_sessions_obtener_codigo_empresa() {
@@ -282,23 +284,24 @@ function _ark_sessions_estado(modo) {
     const btnEdi = document.getElementById('btn_editar');
     const btnCan = document.getElementById('btn_cancelar');
     const btnBor = document.getElementById('btn_borrar');
+    const btnDet = document.getElementById('btn_detalles');
     const campos = document.querySelectorAll('#ark-form-sessions input, #ark-form-sessions select, #ark-form-sessions textarea');
     if (modo === 'consulta') {
         btnInc.disabled = false; btnGua.disabled = true; btnEdi.disabled = true;
-        btnCan.disabled = true; btnBor.disabled = true;
+        btnCan.disabled = true; btnBor.disabled = true; btnDet.disabled = true;
         campos.forEach(c => c.disabled = true);
         _ark_sessions_limpiar_form();
     } else if (modo === 'seleccion') {
         btnInc.disabled = false; btnGua.disabled = true; btnEdi.disabled = false;
-        btnCan.disabled = true; btnBor.disabled = false;
+        btnCan.disabled = true; btnBor.disabled = false; btnDet.disabled = false;
         campos.forEach(c => c.disabled = true);
     } else if (modo === 'edicion') {
         btnInc.disabled = true; btnGua.disabled = false; btnEdi.disabled = true;
-        btnCan.disabled = false; btnBor.disabled = true;
+        btnCan.disabled = false; btnBor.disabled = true; btnDet.disabled = false;
         campos.forEach(c => { if (c.id !== 'ses_numero') c.disabled = false; });
     } else if (modo === 'nuevo') {
         btnInc.disabled = true; btnGua.disabled = false; btnEdi.disabled = true;
-        btnCan.disabled = false; btnBor.disabled = true;
+        btnCan.disabled = false; btnBor.disabled = true; btnDet.disabled = true;
         campos.forEach(c => c.disabled = false);
         document.getElementById('ses_numero').disabled = true;
     }
@@ -449,4 +452,28 @@ async function _ark_sessions_borrar() {
     } catch (err) {
         _ark_sessions_mostrar_mensaje('Error al eliminar: ' + err.message, 'error');
     }
+}
+
+function _ark_sessions_abrir_detalles() {
+    const tr = document.querySelector('#tabla_registros tr.seleccionada');
+    if (!tr) return;
+    const ses_idauto = tr.dataset.idauto;
+    const overlay = document.createElement('div');
+    overlay.id = 'ark-modal-overlay';
+    overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; justify-content: center; align-items: center;';
+    const modal = document.createElement('div');
+    modal.style.cssText = 'background: #fff; border-radius: 8px; padding: 2rem; max-width: 90%; max-height: 90%; overflow-y: auto; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
+    const btnCerrar = document.createElement('button');
+    btnCerrar.textContent = '✕';
+    btnCerrar.style.cssText = 'position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #333;';
+    btnCerrar.addEventListener('click', () => {
+        document.body.removeChild(overlay);
+    });
+    const contenedor = document.createElement('div');
+    contenedor.id = 'ark-modal-contenido';
+    modal.appendChild(btnCerrar);
+    modal.appendChild(contenedor);
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+    renderArkSessionsDetailsModal(ses_idauto);
 }
